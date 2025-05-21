@@ -1,20 +1,26 @@
 import json
-import os
+from pathlib import Path
 from src.models.encuesta import Encuesta
 from src.models.voto import Voto
 from datetime import datetime
 
 class EncuestaRepository:
-    def __init__(self, filepath='data/encuestas.json'):
-        self.filepath = filepath
-        os.makedirs(os.path.dirname(filepath), exist_ok=True)
-        if not os.path.exists(self.filepath):
-            with open(self.filepath, 'w') as f:
-                json.dump([], f)
+    def __init__(self, path="data/encuestas.json"):
+        self.path = Path(path)
+        self.path.parent.mkdir(parents=True, exist_ok=True)
+        if not self.path.exists():
+            self.save_all([])
+
+    def save_all(self, encuestas):
+        with open(self.path, "w", encoding="utf-8") as f:
+            json.dump([e.__dict__ for e in encuestas], f, default=str)
+
+    def load_all(self):
+        with open(self.path, "r", encoding="utf-8") as f:
+            return json.load(f)
 
     def get_all(self):
-        with open(self.filepath, 'r') as f:
-            data = json.load(f)
+        data = self.load_all()
         encuestas = [self._dict_to_encuesta(d) for d in data]
         return encuestas
 
@@ -23,8 +29,7 @@ class EncuestaRepository:
         # Reemplaza o añade la encuesta
         encuestas = [e for e in encuestas if e.poll_id != encuesta.poll_id]
         encuestas.append(encuesta)
-        with open(self.filepath, 'w') as f:
-            json.dump([self._encuesta_to_dict(e) for e in encuestas], f, indent=4)
+        self.save_all(encuestas)
 
     def _dict_to_encuesta(self, data: dict) -> Encuesta:
         votos = [Voto(**v) for v in data.get('votos', [])]

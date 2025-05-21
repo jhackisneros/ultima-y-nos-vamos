@@ -1,22 +1,14 @@
-from abc import ABC, abstractmethod
-
-class Observer(ABC):
-    @abstractmethod
-    def update(self, encuesta):
+class Observer:
+    def update(self, event, data):
         pass
 
-class Subject:
+class Observable:
     def __init__(self):
         self._observers = []
 
-    def register_observer(self, observer: Observer):
-        if observer not in self._observers:
-            self._observers.append(observer)
+    def register(self, observer):
+        self._observers.append(observer)
 
-    def unregister_observer(self, observer: Observer):
-        if observer in self._observers:
-            self._observers.remove(observer)
-
-    def notify_observers(self, encuesta):
-        for observer in self._observers:
-            observer.update(encuesta)
+    def notify(self, event, data):
+        for obs in self._observers:
+            obs.update(event, data)

@@ -1,2 +1,6 @@
 firebase-admin
 PyJWT
+gradio
+transformers
+pytest
+bcrypt

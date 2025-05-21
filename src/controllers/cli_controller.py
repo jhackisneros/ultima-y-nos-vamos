@@ -1,4 +1,9 @@
 from getpass import getpass
+# Asegúrate de importar servicios y modelos desde los nuevos paquetes
+# from ..services.poll_service import PollService
+# from ..services.user_service import UserService
+# from ..services.nft_service import NFTService
+# from ..services.chatbot_service import ChatbotService
 
 class CLIController:
     def __init__(self, poll_service, user_service, nft_service, chatbot_service):

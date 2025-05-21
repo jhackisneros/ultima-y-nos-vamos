@@ -5,6 +5,18 @@ from datetime import datetime, timedelta
 from typing import List, Dict, Optional
 
 
+class Encuesta:
+    def __init__(self, pregunta, opciones, duracion, tipo):
+        self.id = str(uuid.uuid4())
+        self.pregunta = pregunta
+        self.opciones = opciones
+        self.votos = []
+        self.active = True
+        self.timestamp_inicio = datetime.now()
+        self.duracion = duracion
+        self.tipo = tipo  # 'simple' o 'multiple'
+
+
 class Poll:
     """
     Representa una encuesta en el sistema.
