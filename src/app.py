@@ -1,5 +1,10 @@
+import sys
+import os
 import argparse
 import threading
+
+# Añade la raíz del proyecto al sys.path para permitir imports absolutos tipo 'src.*'
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from src.controllers.cli_controller import CLIController
 from src.controllers.ui_controller import UIController

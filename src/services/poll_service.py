@@ -2,7 +2,7 @@ import uuid
 import datetime
 from collections import defaultdict
 from src.models.encuesta import Encuesta
-from src.models.voto import Voto
+from src.models.voto import Vote
 from src.patterns.observer import Subject
 
 class PollService(Subject):
@@ -50,11 +50,11 @@ class PollService(Subject):
         if encuesta.tipo == "simple":
             if opcion not in encuesta.opciones:
                 return False
-            voto = Voto(usuario=username, opcion=opcion)
+            voto = Vote(usuario=username, opcion=opcion)
         elif encuesta.tipo == "multiple":
             if not isinstance(opcion, list) or not all(o in encuesta.opciones for o in opcion):
                 return False
-            voto = Voto(usuario=username, opcion=opcion)
+            voto = Vote(usuario=username, opcion=opcion)
         else:
             # Otros tipos pueden implementarse aquí
             return False
