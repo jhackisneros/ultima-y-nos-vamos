@@ -42,3 +42,11 @@ class User:
         )
         user.tokens = data.get("tokens", [])
         return user
+
+
+class Usuario:
+    def __init__(self, username, password_hash, tokens=None):
+        self.username = username
+        self.password_hash = password_hash
+        self.tokens = tokens if tokens is not None else []
+    # Puedes agregar más métodos y atributos según tus necesidades

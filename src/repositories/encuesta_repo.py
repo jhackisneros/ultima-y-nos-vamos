@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 from src.models.encuesta import Encuesta
-from src.models.voto import Voto
+from src.models.voto import Vote
 from datetime import datetime
 
 class EncuestaRepository:
@@ -32,7 +32,7 @@ class EncuestaRepository:
         self.save_all(encuestas)
 
     def _dict_to_encuesta(self, data: dict) -> Encuesta:
-        votos = [Voto(**v) for v in data.get('votos', [])]
+        votos = [Vote(**v) for v in data.get('votos', [])]
         timestamp_inicio = datetime.fromisoformat(data['timestamp_inicio'])
         return Encuesta(
             poll_id=data['poll_id'],
